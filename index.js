@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 const date = new Date();
-const prefix = "!";
+const prefix = process.env.PREFIX;
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
