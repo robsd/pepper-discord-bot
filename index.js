@@ -1,12 +1,10 @@
 require('dotenv').config(); 
-const ytdl = require('ytdl-core-discord');
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
 const date = new Date();
 const prefix = "!";
-
-var connection;
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -35,29 +33,6 @@ client.on('message', msg => {
 
   const args = msg.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-
-  if (command === "join") {
-    var voiceChannel = msg.member.voice.channel;
-    
-    voiceChannel.join().then(c => {
-      connection = c;
-      console.log("joined channel");
-    }).catch(err => console.log(err));
-  }
-
-  if (command === "play") {
-    play(connection, args[0]).catch(err => console.log(err));
-  }
-
-  if (command === "leave") {
-    var voiceChannel = msg.member.voice.channel;
-    if (client.voice.connections.size == 1) {
-      voiceChannel.leave();
-    }
-    else {
-      console.log("Not in a vc");
-    }
-  }
 
   if (command === 'test') {
     if (!args.length) {
@@ -176,10 +151,5 @@ client.on('message', msg => {
   }
 
 });
-
-
-async function play (c, url) {
-  c.play(await ytdl(url), { type: 'opus' });
-}
 
 client.login();
