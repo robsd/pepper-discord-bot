@@ -152,4 +152,5 @@ client.on('message', msg => {
 
 });
 
+require('./server')();
 client.login();
